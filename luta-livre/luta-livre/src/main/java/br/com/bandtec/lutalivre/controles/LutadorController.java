@@ -34,21 +34,25 @@ public class LutadorController {
 
     @GetMapping("/contagem-vivos")
     public ResponseEntity getVivo(){
-        List<Lutador> lutador=repository.findAll();
+        List<Lutador> lutador=repository.findByVivoTrue();
         Integer cont=0;
         for (Lutador luts : lutador){
-            if (luts.isVivo()){
-                cont++;
-            }
+            cont++;
         }
         return ResponseEntity.status(201).body(cont);
     }
 
 
-    @PostMapping("{id}/concentrar")
+    @GetMapping("/mortos")
     public ResponseEntity postConcentrar(@PathVariable int id){
-        
-        return ResponseEntity.status(200).body(repository.findById(id).)
+        List<Lutador> lutador=repository.findByVivoTrue();
+        Integer cont=0;
+        for (Lutador luts : lutador){
+            cont++;
+        }
+        return ResponseEntity.status(201).body(cont);
 
     }
+
+    
 }
