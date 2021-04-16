@@ -56,14 +56,19 @@ public class LutadorController {
 
     @PostMapping("{id}/concentrar")
     public ResponseEntity postConcentrar(@PathVariable int id){
-        List<Lutador> lutador=repository.findAll();
-        //System.out.println(repository.findById(id).get().getConcentracoesRealizadas());
-        if (repository.findById(id).get().getConcentracoesRealizadas()>=3){
-            return ResponseEntity.status(400).body("O lutador já fez 3 concentrações");
+        if (repository.existsById(id)){
+            List<Lutador> lutador=repository.findAll();
+            //System.out.println(repository.findById(id).get().getConcentracoesRealizadas());
+            if (repository.findById(id).get().getConcentracoesRealizadas()>=3){
+                return ResponseEntity.status(200).body("O lutador já fez 3 concentrações");
+            }else {
+                repository.save(repository.findById(id).get().concentrar());
+                return ResponseEntity.status(200).body("O lutador "+repository.findById(id).get().getNome()+" se concentrou");
+            }
         }else {
-            repository.save(repository.findById(id).get().concentrar());
-            return ResponseEntity.status(200).body("O lutador "+repository.findById(id).get().getNome()+" se concentrou");
+            return ResponseEntity.status(400).body("Lutador com índice não encontrado!");
         }
+
 
     }
 }
