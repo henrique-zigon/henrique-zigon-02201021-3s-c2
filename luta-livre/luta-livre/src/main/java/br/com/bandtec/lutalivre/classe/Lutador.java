@@ -28,13 +28,13 @@ public class Lutador {
 
 
 
-    public String concentrar(){
-        if (concentracoesRealizadas<3){
+    public Lutador concentrar(){
+        if (this.concentracoesRealizadas<3){
             this.vida=this.vida*1.15;
-            this.concentracoesRealizadas++;
-            return "Lutador "+this.nome+" se concentrou!";
+            this.setConcentracoesRealizadas(this.getConcentracoesRealizadas() +1);
+            return this;
         }else {
-            return "Lutador já se concentrou 3 vezes";
+            return this;
         }
     }
 
