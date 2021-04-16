@@ -44,7 +44,7 @@ public class LutadorController {
 
 
     @GetMapping("/mortos")
-    public ResponseEntity postConcentrar(@PathVariable int id){
+    public ResponseEntity getMorto(){
         List<Lutador> lutador=repository.findByVivoTrue();
         Integer cont=0;
         for (Lutador luts : lutador){
@@ -54,5 +54,9 @@ public class LutadorController {
 
     }
 
-    
+    @PostMapping("{id}/concentrar")
+    public ResponseEntity postConcentrar(@PathVariable int id){
+        Lutador lutador=repository.findById(id).get();
+        return ResponseEntity.status(200).body(lutador.concentrar());
+    }
 }
